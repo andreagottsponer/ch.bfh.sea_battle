@@ -1,21 +1,22 @@
 package ch.bfh.sea_battle.scenes.game.position;
 
 import ch.bfh.sea_battle.utilities.NavigationBar;
+import ch.bfh.sea_battle.utilities.ShipView;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class GamePositionSceneView {
     private Scene scene;
     private NavigationBar navigationBar;
     private BorderPane borderPane;
-    private StackPane shipParking;
-    private StackPane shipPlacing;
-    private ImageView testShip;
+    private Pane pane;
+    private ArrayList<ShipView> ships;
 
     public GamePositionSceneView() {
         this.createScene();
@@ -27,23 +28,23 @@ public class GamePositionSceneView {
         this.navigationBar.getTitleLabel().setText("");
         this.navigationBar.getRightButton().setText("");
 
-        this.shipParking = new StackPane();
-        this.shipParking.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
-        this.shipParking.setPrefWidth(200);
+        this.pane = new Pane();
+        this.pane.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
 
-        this.shipPlacing = new StackPane();
-        this.shipPlacing.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-        this.shipPlacing.setPrefWidth(500);
-
-        this.testShip = new ImageView();
+        this.ships = new ArrayList<ShipView>();
         Image image = new Image(getClass().getClassLoader().getResourceAsStream("images/ship.png"));
-        this.testShip.setImage(image);
-        this.shipParking.getChildren().add(this.testShip);
+
+        for (int i = 0; i < 5; i++) {
+            ShipView shipView = new ShipView();
+            shipView.setImage(image);
+            shipView.relocate(10, i * 80);
+            this.pane.getChildren().add(shipView);
+            this.ships.add(shipView);
+        }
 
         this.borderPane = new BorderPane();
         this.borderPane.setTop(this.navigationBar);
-        this.borderPane.setLeft(this.shipParking);
-        this.borderPane.setCenter(this.shipPlacing);
+        this.borderPane.setCenter(this.pane);
 
         this.scene = new Scene(this.borderPane, 700, 500);
     }
@@ -52,16 +53,8 @@ public class GamePositionSceneView {
         applicationStage.setScene(this.scene);
     }
 
-    public StackPane getShipParking() {
-        return this.shipParking;
-    }
-
-    public StackPane getShipPlacing() {
-        return this.shipPlacing;
-    }
-
-    public ImageView getTestShip() {
-        return this.getTestShip();
+    public Pane getPane() {
+        return this.pane;
     }
 
     public NavigationBar getNavigationBar() {
