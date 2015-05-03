@@ -27,19 +27,18 @@ public class GamePositionSceneView {
         this.navigationBar.getTitleLabel().setText("");
         this.navigationBar.getRightButton().setText("");
 
-        this.testShip = new ImageView();
-        Image image = new Image(getClass().getClassLoader().getResourceAsStream("images/ship.png"));
-        this.testShip.setImage(image);
-        this.shipParking.getChildren().add(this.testShip);
-
         this.shipParking = new StackPane();
         this.shipParking.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)));
         this.shipParking.setPrefWidth(200);
 
-
         this.shipPlacing = new StackPane();
         this.shipPlacing.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
         this.shipPlacing.setPrefWidth(500);
+
+        this.testShip = new ImageView();
+        Image image = new Image(getClass().getClassLoader().getResourceAsStream("images/ship.png"));
+        this.testShip.setImage(image);
+        this.shipParking.getChildren().add(this.testShip);
 
         this.borderPane = new BorderPane();
         this.borderPane.setTop(this.navigationBar);
