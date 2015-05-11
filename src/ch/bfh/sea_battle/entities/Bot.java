@@ -3,15 +3,11 @@ package ch.bfh.sea_battle.entities;
 import java.util.ArrayList;
 
 public class Bot extends Player {
-    private int count;
-    private int hit_count;
-    private int[] shotx;
-    private int[] shoty;
+    private Field field;
+    private int[][] shots;
 
     public Bot(String name) {
         super(name);
-        this.count = -1;
-        this.hit_count = -1;
     }
 
     public int shot() {
@@ -19,7 +15,101 @@ public class Bot extends Player {
         int x = this.field.getX();
         int y = this.field.getY();
 
-        //get fields x
+        //get ships
+        ArrayList<Ship> ships = this.field.getShip();
+
+        int[] ship_length = new int[ships.size()];
+        for (int i = 0; i < ships.size(); i++) {
+            if(ships.get(i).getDestroyed() != 0) {
+                ship_length[i] = 1;
+            }
+        }
+
+        int[][] fieldcount = new int[x][y];
+        for (int ix = 0; ix < x; ix++) {
+            for (int iy = 0; iy < y; iy++) {
+                //check for ships
+                int max_value = 0;
+                boolean direction_left = true;
+                boolean direction_right = true;
+                boolean direction_up = true;
+                boolean direction_down = true;
+
+                for(int ilength = 0; ilength <= ship_length.length; ilength++) {
+                    //calculate posibilities (right)
+                    if(direction_right) {
+                        if ((ix + ilength) > x) {
+                            direction_right = false;
+                        } else {
+                            if (ship_length[ilength] == 1) {
+                                if (this.shots[ix + ilength][iy] == 0) {
+                                    fieldcount[ix][iy]++;
+                                    if(fieldcount[ix][iy] > max_value) {
+                                        max_value = fieldcount[ix][iy];
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //calculate posibilities (left)
+                    if(direction_left) {
+                        if((ix-ilength) < 0) {
+                            direction_left = false;
+                        }
+                        else {
+                            if(ship_length[ilength] == 1) {
+                                if(this.shots[ix-ilength][iy] == 0) {
+                                    fieldcount[ix][iy]++;
+                                    if(fieldcount[ix][iy] > max_value) {
+                                        max_value = fieldcount[ix][iy];
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //calculate posibilities (down)
+                    if(direction_down) {
+                        if((iy+ilength) > y) {
+                            direction_down = false;
+                        }
+                        else {
+                            if(ship_length[ilength] == 1) {
+                                if(this.shots[ix][iy+ilength] == 0) {
+                                    fieldcount[ix][iy]++;
+                                    if(fieldcount[ix][iy] > max_value) {
+                                        max_value = fieldcount[ix][iy];
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //calculate posibilities (up)
+                    if(direction_up) {
+                        if((iy-ilength) < 0) {
+                            direction_up = false;
+                        }
+                        else {
+                            if(ship_length[ilength] == 1) {
+                                if(this.shots[ix][iy-ilength] == 0) {
+                                    fieldcount[ix][iy]++;
+                                    if(fieldcount[ix][iy] > max_value) {
+                                        max_value = fieldcount[ix][iy];
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if(!direction_right && !direction_left && !direction_down && !direction_up) {
+                        break;
+                    }
+                }
+
+                // get all coordinates with the value max_value and choose one of these
+                int[] coordX = new int[x];
+                int[] coordY = new int[y];
+            }
+        }
 
 
 
@@ -86,7 +176,6 @@ public class Bot extends Player {
 
     public void setField(Field field) {
         this.field = field;
-        this.shotx = new int[field.getX()];
-        this.shoty = new int[field.getY()];
+        this.shots = new int[field.getX()][field.getY()];
     }
 }
