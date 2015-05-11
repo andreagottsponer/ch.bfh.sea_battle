@@ -15,6 +15,16 @@ public class Bot extends Player {
     }
 
     public int shot() {
+        //get field x,y
+        int x = this.field.getX();
+        int y = this.field.getY();
+
+        //get fields x
+
+
+
+        //old version
+        /*
         ArrayList<Ship> ships = this.field.getShip();
 
         if(hit_count == -1) {
@@ -66,8 +76,10 @@ public class Bot extends Player {
             }
         }
         else {
+
             System.out.println("jetzt kill");
         }
+        */
 
         return 1;
     }
