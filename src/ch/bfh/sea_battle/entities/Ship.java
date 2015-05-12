@@ -35,3 +35,6 @@ public class Ship {
         this.destroyed = destroyed;
     }
 }
+
+
+
