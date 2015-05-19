@@ -8,7 +8,7 @@ public class bottest {
         int fieldX = 10;
         int fieldY = 10;
 
-        Field field = new Field(fieldX, fieldY, 5);
+        Field field = new Field(fieldX, fieldY);
 
         Ship ship1 = new Ship(1, 2);
         Ship ship2 = new Ship(2, 3);
