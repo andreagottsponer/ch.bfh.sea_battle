@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class NavigationBar extends HBox {
     private Button leftButton = null;
@@ -40,6 +41,7 @@ public class NavigationBar extends HBox {
     public Label getTitleLabel() {
         if (this.titleLabel == null) {
             this.titleLabel = new Label();
+            this.titleLabel.setFont(new Font("Arial", 16));
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER);
             hBox.getChildren().add(this.titleLabel);

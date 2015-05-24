@@ -1,5 +1,6 @@
 package ch.bfh.sea_battle.scenes.setup;
 
+import ch.bfh.sea_battle.model.ConfigurationManager;
 import ch.bfh.sea_battle.utilities.GameType;
 import ch.bfh.sea_battle.utilities.NavigationBar;
 import javafx.geometry.Pos;
@@ -12,10 +13,10 @@ import javafx.scene.Scene;
 public class SetupSceneView {
     private Scene scene;
     private NavigationBar navigationBar;
-    private BorderPane borderPane;
-    private VBox vBox;
     private TextField nameFirstPlayer;
     private TextField nameSecondPlayer;
+    private TextField numberOfColumns;
+    private TextField numberOfRows;
     private GameType gameType;
 
     public SetupSceneView(GameType gameType) {
@@ -25,36 +26,55 @@ public class SetupSceneView {
 
     public void createScene() {
         this.navigationBar = new NavigationBar();
-        this.navigationBar.getLeftButton().setText("Back");
+        this.navigationBar.getLeftButton().setText("Cancel");
         this.navigationBar.getTitleLabel().setText("Create Game");
         this.navigationBar.getRightButton().setText("Continue");
 
-        //Todo: In eigene Klasse auslagern
-        Label label1 = new Label("Player 1:");
-        this.nameFirstPlayer = new TextField();
-        HBox hb1 = new HBox();
-        hb1.setAlignment(Pos.CENTER);
-        hb1.getChildren().addAll(label1, this.nameFirstPlayer);
-        hb1.setSpacing(10);
+        VBox vBoxLeft = new VBox();
+        vBoxLeft.setSpacing(20);
 
-        this.vBox = new VBox();
-        this.vBox.getChildren().add(hb1);
+        VBox vBoxRight = new VBox();
+        vBoxRight.setSpacing(10);
+
+        Label labelPlayer1 = new Label("Player 1:");
+        this.nameFirstPlayer = new TextField();
+        vBoxLeft.getChildren().add(labelPlayer1);
+        vBoxRight.getChildren().add(this.nameFirstPlayer);
 
         if (this.gameType == GameType.TWO_PLAYER) {
-            Label label2 = new Label("Player 2:");
+            Label labelPlayer2 = new Label("Player 2:");
             this.nameSecondPlayer = new TextField();
-            HBox hb2 = new HBox();
-            hb2.setAlignment(Pos.CENTER);
-            hb2.getChildren().addAll(label2, this.nameSecondPlayer);
-            hb2.setSpacing(10);
-            this.vBox.getChildren().add(hb2);
+            vBoxLeft.getChildren().add(labelPlayer2);
+            vBoxRight.getChildren().add(this.nameSecondPlayer);
         }
 
-        this.borderPane = new BorderPane();
-        this.borderPane.setTop(this.navigationBar);
-        this.borderPane.setCenter(this.vBox);
+        Label labelColumns = new Label("Number Columns:");
+        this.numberOfColumns = new TextField();
+        this.numberOfColumns.setText(Integer.toString(ConfigurationManager.sharedInstance().getGridWidth()));
+        vBoxLeft.getChildren().add(labelColumns);
+        vBoxRight.getChildren().add(this.numberOfColumns);
 
-        this.scene = new Scene(this.borderPane, 700, 500);
+        Label labelRows = new Label("Number Rows:");
+        this.numberOfRows = new TextField();
+        this.numberOfRows.setText(Integer.toString(ConfigurationManager.sharedInstance().getGridHeight()));
+        vBoxLeft.getChildren().add(labelRows);
+        vBoxRight.getChildren().add(this.numberOfRows);
+
+        BorderPane borderPane = new BorderPane();
+        borderPane.setTop(this.navigationBar);
+
+        HBox hBox = new HBox();
+        hBox.setSpacing(10);
+        hBox.setAlignment(Pos.CENTER);
+        hBox.getChildren().addAll(vBoxLeft, vBoxRight);
+
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER);
+        vBox.getChildren().add(hBox);
+
+        borderPane.setCenter(vBox);
+
+        this.scene = new Scene(borderPane, 420, 466);
     }
 
     public void show(Stage applicationStage) {
@@ -69,6 +89,10 @@ public class SetupSceneView {
     public TextField getNameSecondPlayer() {
         return this.nameSecondPlayer;
     }
+
+    public TextField getNumberOfColumns() { return this.numberOfColumns; }
+
+    public TextField getNumberOfRows() { return this.numberOfRows; }
 
     public NavigationBar getNavigationBar() {
         return this.navigationBar;

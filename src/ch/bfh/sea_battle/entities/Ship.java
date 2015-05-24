@@ -4,11 +4,16 @@ public class Ship {
     protected int uid;
     protected int length;
     protected int destroyed;
+    protected int x, y;
+    private int direction;
 
-    public Ship(int uid, int length) {
+    public Ship(int uid, int length, int x, int y, int direction) {
         this.uid = uid;
         this.length = length;
+        this.x = x;
+        this.y = y;
         this.destroyed = length;
+        this.direction = direction;
     }
 
     public int getUid() {
@@ -33,6 +38,18 @@ public class Ship {
 
     public void setDestroyed(int destroyed) {
         this.destroyed = destroyed;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getDirection() {
+        return this.direction;
     }
 }
 

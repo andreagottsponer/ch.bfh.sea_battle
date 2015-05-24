@@ -1,20 +1,22 @@
 package ch.bfh.sea_battle.entities;
 
+import ch.bfh.sea_battle.model.ConfigurationManager;
+
 /**
  * Created by 1-7353 on 13.05.2015.
  */
 public class bottest {
     public static void main(String [ ] args) {
-        int fieldX = 10;
-        int fieldY = 10;
+        int fieldX = ConfigurationManager.sharedInstance().getGridWidth();
+        int fieldY = ConfigurationManager.sharedInstance().getGridHeight();
 
         Field field = new Field(fieldX, fieldY);
 
-        Ship ship1 = new Ship(1, 2);
-        Ship ship2 = new Ship(2, 3);
-        Ship ship3 = new Ship(3, 3);
-        Ship ship4 = new Ship(4, 4);
-        Ship ship5 = new Ship(5, 5);
+        Ship ship1 = new Ship(1, 2, 1, 1, 0);
+        Ship ship2 = new Ship(2, 3, 2, 2, 0);
+        Ship ship3 = new Ship(3, 3, 3, 3, 0);
+        Ship ship4 = new Ship(4, 4, 4, 4, 0);
+        Ship ship5 = new Ship(5, 5, 5, 5, 0);
 
         field.addShip(ship1);
         field.addShip(ship2);

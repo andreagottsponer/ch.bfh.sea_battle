@@ -12,29 +12,31 @@ public class InitialSceneView {
     private Scene scene;
     private Button singlePlayerButton;
     private Button twoPlayerButton;
-    private NavigationBar navigationBar;
-    private BorderPane borderPane;
-    private VBox vBox;
 
     public InitialSceneView() {
         this.createScene();
     }
 
     public void createScene() {
-        this.navigationBar = new NavigationBar();
-        this.navigationBar.getTitleLabel().setText("Choose Mode");
+        NavigationBar navigationBar = new NavigationBar();
+        navigationBar.getTitleLabel().setText("Choose Mode");
 
-        this.vBox = new VBox();
-        this.vBox.setAlignment(Pos.CENTER);
-        this.singlePlayerButton = new Button("1 Player");
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(10);
+        this.singlePlayerButton = new Button("1 Player vs. AI");
+        this.singlePlayerButton.setPrefWidth(200);
+        this.singlePlayerButton.setPrefHeight(40);
         this.twoPlayerButton = new Button("2 Players");
-        this.vBox.getChildren().addAll(this.singlePlayerButton, this.twoPlayerButton);
+        this.twoPlayerButton.setPrefWidth(200);
+        this.twoPlayerButton.setPrefHeight(40);
+        vBox.getChildren().addAll(this.singlePlayerButton, this.twoPlayerButton);
 
-        this.borderPane = new BorderPane();
-        this.borderPane.setTop(this.navigationBar);
-        this.borderPane.setCenter(this.vBox);
+        BorderPane borderPane = new BorderPane();
+        borderPane.setTop(navigationBar);
+        borderPane.setCenter(vBox);
 
-        this.scene = new Scene(this.borderPane, 700, 500);
+        this.scene = new Scene(borderPane, 420, 466);
     }
 
     public void show(Stage applicationStage) {

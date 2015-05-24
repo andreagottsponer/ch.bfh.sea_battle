@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Bot extends Player {
-    private Field field;
-    private int[][] shots;
 
     public Bot(String name) {
         super(name);
     }
 
     public int shot() {
+
         //get field x,y
         int x = this.field.getX();
         int y = this.field.getY();
@@ -23,6 +22,7 @@ public class Bot extends Player {
         ArrayList<Ship> ships = this.field.getShip();
 
         int[] ship_length = new int[ships.size()];
+
         for (int i = 0; i < ships.size(); i++) {
             if (ships.get(i).getDestroyed() != 0) {
                 ship_length[i] = 1;

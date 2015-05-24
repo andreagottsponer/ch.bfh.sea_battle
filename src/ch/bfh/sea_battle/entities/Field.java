@@ -11,10 +11,37 @@ public class Field {
     public Field(int x, int y) {
         this.x = x;
         this.y = y;
+        this.ship = new ArrayList<>();
+        field = new int[this.x][this.y];
     }
 
-    public void addShip(Ship ship)  {
-        this.ship.set(ship.getUid(), ship);
+    public boolean addShip(Ship ship)  {
+        this.ship.add(ship.getUid(), ship);
+        ship.setUid(ship.getUid() + 1);
+
+        for (int i = 0; i < ship.length; i++) {
+            if (ship.getDirection() % 2 == 0) {
+                int x = ship.getX() + i;
+                int y = ship.getY();
+                if (x < 0 || x > 9 || y < 0 || y > 9 || this.field[x][y] != 0) {
+                    this.ship.clear();
+                    this.field = new int[this.x][this.y];
+                    return false;
+                }
+                this.field[x][y] = ship.getUid();
+            } else {
+                int x = ship.getX();
+                int y = ship.getY() + i;
+                if (x < 0 || x > 9 || y < 0 || y > 9 || this.field[x][y] != 0) {
+                    this.ship.clear();
+                    this.field = new int[this.x][this.y];
+                    return false;
+                }
+                this.field[x][y] = ship.getUid();
+            }
+        }
+
+        return true;
     }
 
     public boolean shot(int x, int y) {
@@ -60,7 +87,8 @@ public class Field {
         return ship;
     }
 
-    public void setShip(ArrayList<Ship> ship) {
-        this.ship = ship;
+    public void reset() {
+        this.field = new int[this.x][this.y];
+        this.ship.clear();
     }
 }
