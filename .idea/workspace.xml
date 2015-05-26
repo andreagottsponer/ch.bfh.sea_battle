@@ -78,7 +78,7 @@
       <file leaf-file-name="GamePlaySceneController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ch/bfh/sea_battle/scenes/game/play/GamePlaySceneController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.484848" vertical-offset="2033" max-vertical-offset="2856">
+            <state vertical-scroll-proportion="-12.575758" vertical-offset="1931" max-vertical-offset="2856">
               <caret line="138" column="79" selection-start-line="138" selection-start-column="79" selection-end-line="138" selection-end-column="79" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -90,18 +90,18 @@
       <file leaf-file-name="SetupSceneController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ch/bfh/sea_battle/scenes/setup/SetupSceneController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="436" max-vertical-offset="1292">
-              <caret line="64" column="55" selection-start-line="64" selection-start-column="55" selection-end-line="64" selection-end-column="55" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="732" max-vertical-offset="1292">
+              <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bot.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Bot.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ch/bfh/sea_battle/entities/Bot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.181818" vertical-offset="4747" max-vertical-offset="5440">
-              <caret line="302" column="8" selection-start-line="302" selection-start-column="8" selection-end-line="307" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.6537037" vertical-offset="2248" max-vertical-offset="5440">
+              <caret line="156" column="32" selection-start-line="156" selection-start-column="32" selection-end-line="156" selection-end-column="32" />
               <folding>
                 <element signature="e#270#271#0" expanded="true" />
                 <element signature="e#297#298#0" expanded="true" />
@@ -123,14 +123,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Field.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Field.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ch/bfh/sea_battle/entities/Field.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.29804373" vertical-offset="676" max-vertical-offset="1649">
-              <caret line="55" column="46" selection-start-line="55" selection-start-column="46" selection-end-line="55" selection-end-column="46" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="663" max-vertical-offset="1768">
+              <caret line="72" column="49" selection-start-line="72" selection-start-column="49" selection-end-line="72" selection-end-column="49" />
               <folding>
-                <element signature="e#2346#2347#0" expanded="true" />
-                <element signature="e#2374#2375#0" expanded="true" />
+                <element signature="e#2504#2505#0" expanded="true" />
+                <element signature="e#2532#2533#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -166,11 +166,11 @@
         <option value="$PROJECT_DIR$/src/ch/bfh/sea_battle/scenes/game/play/GamePlaySceneView.java" />
         <option value="$PROJECT_DIR$/src/ch/bfh/sea_battle/utilities/NavigationBar.java" />
         <option value="$PROJECT_DIR$/src/ch/bfh/sea_battle/entities/Player.java" />
-        <option value="$PROJECT_DIR$/src/ch/bfh/sea_battle/entities/Bot.java" />
         <option value="$PROJECT_DIR$/src/ch/bfh/sea_battle/scenes/setup/SetupSceneController.java" />
         <option value="$PROJECT_DIR$/src/ch/bfh/sea_battle/scenes/game/position/GamePositionSceneController.java" />
         <option value="$PROJECT_DIR$/src/ch/bfh/sea_battle/scenes/game/play/GamePlaySceneController.java" />
         <option value="$PROJECT_DIR$/src/ch/bfh/sea_battle/entities/Field.java" />
+        <option value="$PROJECT_DIR$/src/ch/bfh/sea_battle/entities/Bot.java" />
       </list>
     </option>
   </component>
@@ -466,7 +466,7 @@
     <property name="restartRequiresConfirmation" value="true" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -692,7 +692,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -704,7 +704,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32815966" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32815966" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26791444" sideWeight="0.6703755" order="0" side_tool="false" content_ui="combo" />
@@ -1116,6 +1116,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ch/bfh/sea_battle/scenes/setup/SetupSceneController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="732" max-vertical-offset="1292">
+          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ch/bfh/sea_battle/scenes/game/position/GamePositionSceneController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.6363636" vertical-offset="1527" max-vertical-offset="2261">
@@ -1126,20 +1134,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ch/bfh/sea_battle/entities/Bot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.181818" vertical-offset="4747" max-vertical-offset="5440">
-          <caret line="302" column="8" selection-start-line="302" selection-start-column="8" selection-end-line="307" selection-end-column="9" />
-          <folding>
-            <element signature="e#270#271#0" expanded="true" />
-            <element signature="e#297#298#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ch/bfh/sea_battle/scenes/game/play/GamePlaySceneController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.484848" vertical-offset="2033" max-vertical-offset="2856">
+        <state vertical-scroll-proportion="-12.575758" vertical-offset="1931" max-vertical-offset="2856">
           <caret line="138" column="79" selection-start-line="138" selection-start-column="79" selection-end-line="138" selection-end-column="79" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1147,21 +1144,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ch/bfh/sea_battle/scenes/setup/SetupSceneController.java">
+    <entry file="file://$PROJECT_DIR$/src/ch/bfh/sea_battle/entities/Field.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="572" max-vertical-offset="1292">
-          <caret line="64" column="55" selection-start-line="64" selection-start-column="55" selection-end-line="64" selection-end-column="55" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="663" max-vertical-offset="1768">
+          <caret line="72" column="49" selection-start-line="72" selection-start-column="49" selection-end-line="72" selection-end-column="49" />
+          <folding>
+            <element signature="e#2504#2505#0" expanded="true" />
+            <element signature="e#2532#2533#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ch/bfh/sea_battle/entities/Field.java">
+    <entry file="file://$PROJECT_DIR$/src/ch/bfh/sea_battle/entities/Bot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29804373" vertical-offset="676" max-vertical-offset="1649">
-          <caret line="55" column="46" selection-start-line="55" selection-start-column="46" selection-end-line="55" selection-end-column="46" />
+        <state vertical-scroll-proportion="0.6537037" vertical-offset="2248" max-vertical-offset="5440">
+          <caret line="156" column="32" selection-start-line="156" selection-start-column="32" selection-end-line="156" selection-end-column="32" />
           <folding>
-            <element signature="e#2346#2347#0" expanded="true" />
-            <element signature="e#2374#2375#0" expanded="true" />
+            <element signature="e#270#271#0" expanded="true" />
+            <element signature="e#297#298#0" expanded="true" />
           </folding>
         </state>
       </provider>
