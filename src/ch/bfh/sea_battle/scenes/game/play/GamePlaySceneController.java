@@ -93,7 +93,7 @@ public class GamePlaySceneController {
 
         if (!didHit) {
             this.currentPlayer = this.currentPlayer == this.dataProvider.getFirstPlayer() ? this.dataProvider.getSecondPlayer() : this.dataProvider.getFirstPlayer();
-            opponentPlayer = this.currentPlayer == this.dataProvider.getFirstPlayer() ? this.dataProvider.getSecondPlayer() : this.dataProvider.getFirstPlayer();
+            this.opponentPlayer = this.currentPlayer == this.dataProvider.getFirstPlayer() ? this.dataProvider.getSecondPlayer() : this.dataProvider.getFirstPlayer();
         }
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
