@@ -9,7 +9,9 @@ public class Bot extends Player {
         super(name);
     }
 
-    public int shot() {
+    public int[] shot() {
+
+        int[] result = new int[2];
 
         //get field x,y
         int x = this.field.getX();
@@ -137,6 +139,9 @@ public class Bot extends Player {
 
             int shotX = coordX[rand];
             int shotY = coordY[rand];
+
+            result[0] = shotX;
+            result[1] = shotY;
 
             System.out.println("2:--------");
             System.out.println(shotX);
@@ -277,6 +282,9 @@ public class Bot extends Player {
             int shotX = coordX[rand];
             int shotY = coordY[rand];
 
+            result[0] = shotX;
+            result[1] = shotY;
+
             System.out.println("1:--------");
             System.out.println(shotX);
             System.out.println(shotY);
@@ -295,7 +303,7 @@ public class Bot extends Player {
             System.out.println("");
         }
 
-        return 1;
+        return result;
     }
 
     public void setField(Field field) {

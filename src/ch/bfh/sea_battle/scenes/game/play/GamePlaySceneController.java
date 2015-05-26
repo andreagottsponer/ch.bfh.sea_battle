@@ -145,7 +145,8 @@ public class GamePlaySceneController {
 
         if (this.currentPlayer.getClass() == Bot.class) {
             Bot bot = (Bot)this.currentPlayer;
-            bot.shot(); //todo: shoud return x/y coordinates --> call interpretShot
+            int[] result = bot.shot();
+            this.interpretShot(result[0], result[1]);
         }
 
         String title = this.currentPlayer.getName() + ": Your turn!";
