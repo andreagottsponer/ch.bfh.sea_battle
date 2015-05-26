@@ -54,7 +54,7 @@ public class Field {
         System.out.println(y);
         for (int ix = 0; ix < this.getX(); ix++) {
             for (int iy = 0; iy < this.getY(); iy++) {
-                System.out.print(this.field[ix][iy]+" ");
+                System.out.print(this.field[iy][ix]+" ");
             }
             System.out.println("");
         }
@@ -63,6 +63,8 @@ public class Field {
         if(fieldvalue < 0) {
             fieldvalue = -1 * fieldvalue;
         }
+
+        System.out.println(fieldvalue);
 
         int destroyed = this.ship.get(fieldvalue).getDestroyed();
         this.ship.get(fieldvalue).setDestroyed(destroyed--);

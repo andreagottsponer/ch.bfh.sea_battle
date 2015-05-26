@@ -152,7 +152,7 @@ public class Bot extends Player {
             System.out.println(shotY);
 
             int shipid = Math.abs(PlayerField[shotX][shotY]);
-            if (this.field.shot(shotX, shotY)) {
+            if (this.botfield.shot(shotX, shotY)) {
                 //check, if ship was destoyed
                 if(shipid > 0) {
                     //ship destoyed -> set as destroyed
