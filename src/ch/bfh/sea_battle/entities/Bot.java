@@ -1,9 +1,13 @@
 package ch.bfh.sea_battle.entities;
 
+import ch.bfh.sea_battle.model.ConfigurationManager;
+
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Bot extends Player {
+    protected int[][] botshots;
+    protected Field botfield;
 
     public Bot(String name) {
         super(name);
@@ -14,14 +18,14 @@ public class Bot extends Player {
         int[] result = new int[2];
 
         //get field x,y
-        int x = this.field.getX();
-        int y = this.field.getY();
+        int x = this.botfield.getX();
+        int y = this.botfield.getY();
 
         //get opponent field
-        int[][] PlayerField = this.field.getField();
+        int[][] PlayerField = this.botfield.getField();
 
         //get available ships
-        ArrayList<Ship> ships = this.field.getShip();
+        ArrayList<Ship> ships = this.botfield.getShip();
 
         int[] ship_length = new int[ships.size()];
 
@@ -50,15 +54,15 @@ public class Bot extends Player {
                 boolean direction_down = true;
 
                 //check if it's already been shooted
-                if(this.shots[ix][iy] == 0) {
+                if(this.botshots[ix][iy] == 0) {
                     for(int ilength = 1; ilength < ship_length.length; ilength++) {
                         //check for right shots
                         if(direction_right) {
-                            if((ix + ilength) >= x || this.shots[ix + ilength][iy] == 0 || this.shots[ix + ilength][iy] == 1 || this.shots[ix + ilength][iy] == 3) {
+                            if((ix + ilength) >= x || this.botshots[ix + ilength][iy] == 0 || this.botshots[ix + ilength][iy] == 1 || this.botshots[ix + ilength][iy] == 3) {
                                 direction_right = false;
                             }
                             else {
-                                if(this.shots[ix + ilength][iy] == 2) {
+                                if(this.botshots[ix + ilength][iy] == 2) {
                                     fieldcheck[ix][iy]++;
                                     if (fieldcheck[ix][iy] > max_value) {
                                         max_value = fieldcheck[ix][iy];
@@ -68,7 +72,7 @@ public class Bot extends Player {
                         }
                         //check for left shots
                         if(direction_left) {
-                            if((ix - ilength) < 0 || this.shots[ix - ilength][iy] == 0 || this.shots[ix - ilength][iy] == 1 || this.shots[ix - ilength][iy] == 3) {
+                            if((ix - ilength) < 0 || this.botshots[ix - ilength][iy] == 0 || this.botshots[ix - ilength][iy] == 1 || this.botshots[ix - ilength][iy] == 3) {
                                 direction_left = false;
                             }
                             else {
@@ -82,11 +86,11 @@ public class Bot extends Player {
                         }
                         //check for down shots
                         if(direction_down) {
-                            if((iy + ilength) >= y || this.shots[ix][iy + ilength] == 0 || this.shots[ix][iy + ilength] == 1 || this.shots[ix][iy + ilength] == 3) {
+                            if((iy + ilength) >= y || this.botshots[ix][iy + ilength] == 0 || this.botshots[ix][iy + ilength] == 1 || this.botshots[ix][iy + ilength] == 3) {
                                 direction_down = false;
                             }
                             else {
-                                if (this.shots[ix][iy + ilength] == 2) {
+                                if (this.botshots[ix][iy + ilength] == 2) {
                                     fieldcheck[ix][iy]++;
                                     if (fieldcheck[ix][iy] > max_value) {
                                         max_value = fieldcheck[ix][iy];
@@ -96,11 +100,11 @@ public class Bot extends Player {
                         }
                         //check for up shots
                         if(direction_up) {
-                            if((iy - ilength) < 0 || this.shots[ix][iy - ilength] == 0 || this.shots[ix][iy - ilength] == 1 || this.shots[ix][iy - ilength] == 3) {
+                            if((iy - ilength) < 0 || this.botshots[ix][iy - ilength] == 0 || this.botshots[ix][iy - ilength] == 1 || this.botshots[ix][iy - ilength] == 3) {
                                 direction_up = false;
                             }
                             else {
-                                if (this.shots[ix][iy - ilength] == 2) {
+                                if (this.botshots[ix][iy - ilength] == 2) {
                                     fieldcheck[ix][iy]++;
                                     if (fieldcheck[ix][iy] > max_value) {
                                         max_value = fieldcheck[ix][iy];
@@ -157,18 +161,18 @@ public class Bot extends Player {
                         for (int ix = 0; ix < x; ix++) {
                             for (int iy = 0; iy < y; iy++) {
                                 if(Math.abs(PlayerField[ix][iy]) == shipid) {
-                                    this.shots[ix][iy] = 3;
+                                    this.botshots[ix][iy] = 3;
                                 }
                             }
                         }
                     }
                     //Mark as hit
                     else {
-                        this.shots[shotX][shotY] = 2;
+                        this.botshots[shotX][shotY] = 2;
                     }
                 }
             } else {
-                this.shots[shotX][shotY] = 1;
+                this.botshots[shotX][shotY] = 1;
             }
         }
         else {
@@ -188,7 +192,7 @@ public class Bot extends Player {
                     boolean direction_down = true;
 
                     //check if it's already been shooted
-                    if(this.shots[ix][iy] == 0) {
+                    if(this.botshots[ix][iy] == 0) {
                         //check for possibilities
                         for (int ilength = 0; ilength < ship_length.length; ilength++) {
                             //calculate posibilities (right)
@@ -197,7 +201,7 @@ public class Bot extends Player {
                                     direction_right = false;
                                 } else {
                                     if (ship_length[ilength] == 1) {
-                                        if (this.shots[ix + ilength][iy] == 0) {
+                                        if (this.botshots[ix + ilength][iy] == 0) {
                                             fieldcount[ix][iy]++;
                                             if (fieldcount[ix][iy] > max_value) {
                                                 max_value = fieldcount[ix][iy];
@@ -212,7 +216,7 @@ public class Bot extends Player {
                                     direction_left = false;
                                 } else {
                                     if (ship_length[ilength] == 1) {
-                                        if (this.shots[ix - ilength][iy] == 0) {
+                                        if (this.botshots[ix - ilength][iy] == 0) {
                                             fieldcount[ix][iy]++;
                                             if (fieldcount[ix][iy] > max_value) {
                                                 max_value = fieldcount[ix][iy];
@@ -227,7 +231,7 @@ public class Bot extends Player {
                                     direction_down = false;
                                 } else {
                                     if (ship_length[ilength] == 1) {
-                                        if (this.shots[ix][iy + ilength] == 0) {
+                                        if (this.botshots[ix][iy + ilength] == 0) {
                                             fieldcount[ix][iy]++;
                                             if (fieldcount[ix][iy] > max_value) {
                                                 max_value = fieldcount[ix][iy];
@@ -242,7 +246,7 @@ public class Bot extends Player {
                                     direction_up = false;
                                 } else {
                                     if (ship_length[ilength] == 1) {
-                                        if (this.shots[ix][iy - ilength] == 0) {
+                                        if (this.botshots[ix][iy - ilength] == 0) {
                                             fieldcount[ix][iy]++;
                                             if (fieldcount[ix][iy] > max_value) {
                                                 max_value = fieldcount[ix][iy];
@@ -289,16 +293,16 @@ public class Bot extends Player {
             System.out.println(shotX);
             System.out.println(shotY);
 
-            if (this.field.shot(shotX, shotY)) {
-                this.shots[shotX][shotY] = 2;
+            if (this.botfield.shot(shotX, shotY)) {
+                this.botshots[shotX][shotY] = 2;
             } else {
-                this.shots[shotX][shotY] = 1;
+                this.botshots[shotX][shotY] = 1;
             }
         }
 
         for (int ix = 0; ix < x; ix++) {
             for (int iy = 0; iy < y; iy++) {
-                System.out.print(this.shots[ix][iy]+" ");
+                System.out.print(this.botshots[ix][iy]+" ");
             }
             System.out.println("");
         }
@@ -306,8 +310,8 @@ public class Bot extends Player {
         return result;
     }
 
-    public void setField(Field field) {
-        this.field = field;
-        this.shots = new int[field.getX()][field.getY()];
+    public void setBotField(Field field) {
+        this.botfield = field;
+        this.botshots = new int[field.getX()][field.getY()];
     }
 }

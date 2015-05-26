@@ -61,7 +61,8 @@ public class SetupSceneController {
             this.dataProvider.setFirstPlayer(player1);
 
             if (this.dataProvider.getGameType() == GameType.SINGLE_PLAYER) {
-                this.dataProvider.setSecondPlayer(new Bot("Computer"));
+                Bot bot = new Bot("Computer");
+                this.dataProvider.setSecondPlayer(bot);
             } else {
                 String nameSecondPlayer = (this.view.getNameSecondPlayer().getText() == null || this.view.getNameSecondPlayer().getText().equals("")) ? "Player 2" : this.view.getNameSecondPlayer().getText();
                 Player player2 = new Player(nameSecondPlayer);

@@ -1,5 +1,6 @@
 package ch.bfh.sea_battle.scenes.game.position;
 
+import ch.bfh.sea_battle.entities.Bot;
 import ch.bfh.sea_battle.entities.Field;
 import ch.bfh.sea_battle.entities.Player;
 import ch.bfh.sea_battle.entities.Ship;
@@ -61,7 +62,6 @@ public class GamePositionSceneController {
                 field.addShip(ship5);
 
                 this.dataProvider.getSecondPlayer().setField(field);
-
                 new GamePlaySceneController().show();
 
             } else if (this.currentPlayer == this.dataProvider.getFirstPlayer()) {
@@ -78,6 +78,8 @@ public class GamePositionSceneController {
 
         int cellSize = ConfigurationManager.sharedInstance().getCellSize();
 
+        Field botfield = new Field(player.getField().getX(), player.getField().getY());
+
         for (int i = 0; i < this.view.getShips().size(); i++) {
             ShipView currentShip = this.view.getShips().get(i);
             Bounds boundsInScene = currentShip.localToScene(currentShip.getBoundsInLocal());
@@ -88,6 +90,24 @@ public class GamePositionSceneController {
             if (!player.getField().addShip(new Ship(i, currentShip.getLength(), x, y, currentShip.getDirection()))) {
                return false;
             }
+
+            if(!botfield.addShip(new Ship(i, currentShip.getLength(), x, y, currentShip.getDirection()))) {
+                return false;
+            }
+        }
+
+        if (this.dataProvider.getGameType() == GameType.SINGLE_PLAYER) {
+            Bot bot = (Bot) this.dataProvider.getSecondPlayer();
+
+            int[][] bot_field = botfield.getField();
+            int[][] tmp_field = new int[botfield.getY()][botfield.getX()];
+            for (int ix = 0; ix < botfield.getY(); ix++) {
+                for (int iy = 0; iy < botfield.getX(); iy++) {
+                    tmp_field[iy][ix] = bot_field[ix][iy];
+                }
+            }
+            botfield.setField(tmp_field);
+            bot.setBotField(botfield);
         }
 
         return true;

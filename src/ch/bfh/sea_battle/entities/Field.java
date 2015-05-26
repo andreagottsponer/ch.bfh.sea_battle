@@ -50,6 +50,15 @@ public class Field {
         }
 
         //decrement ship destroyed -> when equels zero -> ship destroyed
+        System.out.println(x);
+        System.out.println(y);
+        for (int ix = 0; ix < this.getX(); ix++) {
+            for (int iy = 0; iy < this.getY(); iy++) {
+                System.out.print(this.field[ix][iy]+" ");
+            }
+            System.out.println("");
+        }
+
         int destroyed = this.ship.get(this.field[x][y]).getDestroyed();
         this.ship.get(this.field[x][y]).setDestroyed(destroyed--);
 

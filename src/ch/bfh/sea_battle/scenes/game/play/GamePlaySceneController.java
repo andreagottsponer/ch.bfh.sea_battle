@@ -8,6 +8,10 @@ import ch.bfh.sea_battle.scenes.game.position.GamePositionSceneController;
 import ch.bfh.sea_battle.scenes.initial.InitialSceneController;
 import ch.bfh.sea_battle.model.DataProvider;
 import ch.bfh.sea_battle.utilities.StageProvider;
+import com.sun.javafx.tk.Toolkit;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
@@ -54,7 +58,6 @@ public class GamePlaySceneController {
     }
 
     private void interpretShot(int x, int y) {
-
         //check x/y if out of bounds
         if (0 > x || x > this.width || 0 > y || y > this.height) {
             return;
@@ -142,11 +145,10 @@ public class GamePlaySceneController {
     }
 
     private void nextTurn() {
-
-        if (this.currentPlayer.getClass() == Bot.class) {
+        if (this.currentPlayer instanceof Bot) {
             Bot bot = (Bot)this.currentPlayer;
             int[] result = bot.shot();
-            this.interpretShot(result[0], result[1]);
+            this.interpretShot(result[1], result[0]);
         }
 
         String title = this.currentPlayer.getName() + ": Your turn!";
