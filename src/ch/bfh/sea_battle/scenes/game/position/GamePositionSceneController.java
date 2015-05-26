@@ -34,44 +34,52 @@ public class GamePositionSceneController {
 
             if (this.dataProvider.getGameType() == GameType.SINGLE_PLAYER) {
                 if (!this.saveShipsForPlayer(this.dataProvider.getFirstPlayer())) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Incorrect Placement!");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Please consider that placing ships outside the field or on top of each other is not allowed.");
-                    alert.showAndWait();
-                    return;
+                    this.showIncorrectAlert();
+                } else {
+                    int width = ConfigurationManager.sharedInstance().getGridWidth();
+                    int height = ConfigurationManager.sharedInstance().getGridHeight();
+
+                    //setup ships for bot
+                    Field field = new Field(width, height);
+
+                    Ship ship1 = new Ship(0, 3, 1, 1, 0);
+                    Ship ship2 = new Ship(1, 3, 2, 2, 0);
+                    Ship ship3 = new Ship(2, 3, 3, 3, 0);
+                    Ship ship4 = new Ship(3, 3, 4, 4, 0);
+                    Ship ship5 = new Ship(4, 3, 5, 5, 0);
+
+                    field.addShip(ship1);
+                    field.addShip(ship2);
+                    field.addShip(ship3);
+                    field.addShip(ship4);
+                    field.addShip(ship5);
+
+                    this.dataProvider.getSecondPlayer().setField(field);
+                    new GamePlaySceneController().show();
                 }
-
-                int width = ConfigurationManager.sharedInstance().getGridWidth();
-                int height = ConfigurationManager.sharedInstance().getGridHeight();
-
-                //setup ships for bot
-                Field field = new Field(width, height);
-
-                //todo: randomize creation of bot ships
-                Ship ship1 = new Ship(0, 3, 1, 1, 0);
-                Ship ship2 = new Ship(1, 3, 2, 2, 0);
-                Ship ship3 = new Ship(2, 3, 3, 3, 0);
-                Ship ship4 = new Ship(3, 3, 4, 4, 0);
-                Ship ship5 = new Ship(4, 3, 5, 5, 0);
-
-                field.addShip(ship1);
-                field.addShip(ship2);
-                field.addShip(ship3);
-                field.addShip(ship4);
-                field.addShip(ship5);
-
-                this.dataProvider.getSecondPlayer().setField(field);
-                new GamePlaySceneController().show();
-
             } else if (this.currentPlayer == this.dataProvider.getFirstPlayer()) {
-                this.saveShipsForPlayer(this.dataProvider.getFirstPlayer());
-                new GamePositionSceneController(this.dataProvider.getSecondPlayer()).show();
+                if (!this.saveShipsForPlayer(this.dataProvider.getFirstPlayer())) {
+                    this.showIncorrectAlert();
+                } else {
+                    new GamePositionSceneController(this.dataProvider.getSecondPlayer()).show();
+                }
             } else {
-                this.saveShipsForPlayer(this.dataProvider.getSecondPlayer());
-                new GamePlaySceneController().show();
+                if (!this.saveShipsForPlayer(this.dataProvider.getSecondPlayer())) {
+                    this.showIncorrectAlert();
+                } else {
+                    new GamePlaySceneController().show();
+                }
             }
         });
+    }
+
+    private void showIncorrectAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Incorrect Placement!");
+        alert.setHeaderText(null);
+        alert.setContentText("Please consider that placing ships outside the field or on top of each other is not allowed.");
+        alert.showAndWait();
+        return;
     }
 
     public boolean saveShipsForPlayer(Player player) {

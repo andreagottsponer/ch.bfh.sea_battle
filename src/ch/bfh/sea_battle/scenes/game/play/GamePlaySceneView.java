@@ -2,6 +2,7 @@ package ch.bfh.sea_battle.scenes.game.play;
 
 import ch.bfh.sea_battle.entities.Ship;
 import ch.bfh.sea_battle.model.ConfigurationManager;
+import ch.bfh.sea_battle.utilities.GameType;
 import ch.bfh.sea_battle.utilities.NavigationBar;
 import ch.bfh.sea_battle.utilities.ShipView;
 import javafx.geometry.Insets;
@@ -32,12 +33,16 @@ public class GamePlaySceneView {
     private int margin = ConfigurationManager.sharedInstance().getCellMargin();
     private int heightLabels = 30;
     private boolean showDebugLabels = false;
+    private GameType gameType;
+    private boolean didDrawShips;
 
-    public GamePlaySceneView() {
+    public GamePlaySceneView(GameType gameType) {
         this.imageViews = new ArrayList<>();
         this.labels = new ArrayList<>();
         this.shipViews = new ArrayList<>();
         this.revealedShipViews = new ArrayList<>();
+        this.gameType = gameType;
+        this.didDrawShips = false;
         this.createScene();
     }
 
@@ -66,7 +71,6 @@ public class GamePlaySceneView {
         borderPane.setCenter(this.pane);
 
         this.scene = new Scene(borderPane, 2 * (this.width * this.cellSize) + 6 * this.margin, this.height * this.cellSize + 2 * this.margin + 46 + this.heightLabels);
-
     }
 
     public void show(Stage applicationStage) {
@@ -97,7 +101,7 @@ public class GamePlaySceneView {
         }
     }
 
-    public void clickedField(int x, int y, boolean didHit) {
+    public void clickedField(int x, int y, boolean didHit, boolean isBot) {
         Image image;
 
         if (didHit) {
@@ -108,7 +112,13 @@ public class GamePlaySceneView {
 
         ImageView imageView = new ImageView();
         imageView.setImage(image);
-        imageView.relocate(x * this.cellSize + this.margin, y * this.cellSize + this.margin + this.heightLabels);
+
+        if (isBot) {
+            imageView.relocate(x * this.cellSize + 5 * this.margin + this.width * this.cellSize, y * this.cellSize + this.margin + this.heightLabels);
+        } else {
+            imageView.relocate(x * this.cellSize + this.margin, y * this.cellSize + this.margin + this.heightLabels);
+        }
+
         this.pane.getChildren().add(imageView);
         this.imageViews.add(imageView);
     }
@@ -116,48 +126,63 @@ public class GamePlaySceneView {
     public void refreshInterface(int[][] ownField, int[][] ownShots, ArrayList<Ship> ownShips, int[][] opponentField, int[][] opponentShots, ArrayList<Ship> opponentShips, String title) {
         this.getNavigationBar().getTitleLabel().setText(title);
 
-        this.pane.getChildren().removeAll(this.labels);
-        this.pane.getChildren().removeAll(this.imageViews);
-        this.pane.getChildren().removeAll(this.shipViews);
-        this.pane.getChildren().removeAll(this.revealedShipViews);
-        this.labels.clear();
-        this.imageViews.clear();
-        this.shipViews.clear();
-        this.revealedShipViews.clear();
+        if (this.gameType == GameType.SINGLE_PLAYER) {
 
-        for (Ship ship : ownShips) {
-            this.revealShip(ship, 5 * this.margin + this.width * this.cellSize);
-        }
+            if (this.gameType == GameType.SINGLE_PLAYER && !this.didDrawShips) {
+                for (Ship ship : ownShips) {
+                    this.revealShip(ship, 5 * this.margin + this.width * this.cellSize);
+                }
 
-        for (Ship ship : opponentShips) {
-            if (ship.getDestroyed() == 0) {
-                this.revealShip(ship, 10);
+                this.didDrawShips = true;
             }
-        }
 
-        for (int i = 0; i < opponentField.length; i++) {
-            for (int j = 0; j < opponentField[i].length; j++) {
-                if (opponentField[i][j] != 0) {
+            for (ImageView imageView : this.imageViews) {
+                imageView.toFront();
+            }
+        } else {
+            this.pane.getChildren().removeAll(this.labels);
+            this.pane.getChildren().removeAll(this.imageViews);
+            this.pane.getChildren().removeAll(this.shipViews);
+            this.pane.getChildren().removeAll(this.revealedShipViews);
+            this.labels.clear();
+            this.imageViews.clear();
+            this.shipViews.clear();
+            this.revealedShipViews.clear();
 
-                    if (this.showDebugLabels) {
-                        Label label = new Label(Integer.toString(opponentField[i][j]));
-                        label.setFont(new Font("Arial", 36));
-                        label.relocate(i * this.cellSize + 20, j * this.cellSize + this.margin + this.heightLabels);
-                        this.pane.getChildren().add(label);
-                        this.labels.add(label);
-                    }
+            for (Ship ship : ownShips) {
+                this.revealShip(ship, 5 * this.margin + this.width * this.cellSize);
+            }
+
+            for (Ship ship : opponentShips) {
+                if (ship.getDestroyed() == 0) {
+                    this.revealShip(ship, 10);
                 }
+            }
 
-                if (ownShots[i][j] == 1) {
-                    if (opponentField[i][j] == 0) {
-                        this.markOpponentField(false, i, j);
-                    } else {
-                        this.markOpponentField(true, i, j);
+            for (int i = 0; i < opponentField.length; i++) {
+                for (int j = 0; j < opponentField[i].length; j++) {
+                    if (opponentField[i][j] != 0) {
+
+                        if (this.showDebugLabels) {
+                            Label label = new Label(Integer.toString(opponentField[i][j]));
+                            label.setFont(new Font("Arial", 36));
+                            label.relocate(i * this.cellSize + 20, j * this.cellSize + this.margin + this.heightLabels);
+                            this.pane.getChildren().add(label);
+                            this.labels.add(label);
+                        }
                     }
-                }
 
-                if (opponentShots[i][j] == 1 && ownField[i][j] != 0) {
-                    this.markOwnField(i, j);
+                    if (ownShots[i][j] == 1) {
+                        if (opponentField[i][j] == 0) {
+                            this.markOpponentField(false, i, j);
+                        } else {
+                            this.markOpponentField(true, i, j);
+                        }
+                    }
+
+                    if (opponentShots[i][j] == 1 && ownField[i][j] != 0) {
+                        this.markOwnField(i, j);
+                    }
                 }
             }
         }

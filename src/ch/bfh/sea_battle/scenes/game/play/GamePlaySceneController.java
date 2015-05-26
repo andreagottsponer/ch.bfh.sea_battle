@@ -7,11 +7,8 @@ import ch.bfh.sea_battle.model.ConfigurationManager;
 import ch.bfh.sea_battle.scenes.game.position.GamePositionSceneController;
 import ch.bfh.sea_battle.scenes.initial.InitialSceneController;
 import ch.bfh.sea_battle.model.DataProvider;
+import ch.bfh.sea_battle.utilities.GameType;
 import ch.bfh.sea_battle.utilities.StageProvider;
-import com.sun.javafx.tk.Toolkit;
-import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
@@ -32,7 +29,7 @@ public class GamePlaySceneController {
     private int height = ConfigurationManager.sharedInstance().getGridHeight();
 
     public GamePlaySceneController() {
-        this.view = new GamePlaySceneView();
+        this.view = new GamePlaySceneView(this.dataProvider.getGameType());
         this.currentPlayer = this.dataProvider.getFirstPlayer();
         this.opponentPlayer = this.dataProvider.getSecondPlayer();
 
@@ -69,7 +66,8 @@ public class GamePlaySceneController {
         }
 
         boolean didHit = this.opponentPlayer.getField().getField()[x][y] != 0;
-        this.view.clickedField(x, y, didHit);
+
+        this.view.clickedField(x, y, didHit, this.currentPlayer == this.dataProvider.getSecondPlayer());
 
         if (didHit) {
             int shipId = this.opponentPlayer.getField().getField()[x][y];
@@ -79,8 +77,10 @@ public class GamePlaySceneController {
                 ship.setDestroyed(ship.getDestroyed() - 1);
             }
 
-            if (ship.getDestroyed() == 0) {
-                this.view.revealShip(ship, 10);
+            if (!(this.dataProvider.getGameType() == GameType.SINGLE_PLAYER && this.currentPlayer == this.dataProvider.getSecondPlayer())) {
+                if (ship.getDestroyed() == 0) {
+                    this.view.revealShip(ship, 10);
+                }
             }
 
             if (this.checkIfWon()) {
@@ -96,19 +96,22 @@ public class GamePlaySceneController {
             this.opponentPlayer = this.currentPlayer == this.dataProvider.getFirstPlayer() ? this.dataProvider.getSecondPlayer() : this.dataProvider.getFirstPlayer();
         }
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        if (this.dataProvider.getGameType() == GameType.TWO_PLAYER) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
-        if (didHit) {
-            alert.setTitle("Hit!");
-            alert.setHeaderText(null);
-            alert.setContentText("Hit! Another turn for player " + this.currentPlayer.getName() + "!");
-        } else {
-            alert.setTitle("Hit!");
-            alert.setHeaderText(null);
-            alert.setContentText("Miss! " + this.currentPlayer.getName() + " has the next turn!");
+            if (didHit) {
+                alert.setTitle("Hit!");
+                alert.setHeaderText(null);
+                alert.setContentText("Hit! Another turn for player " + this.currentPlayer.getName() + "!");
+            } else {
+                alert.setTitle("Hit!");
+                alert.setHeaderText(null);
+                alert.setContentText("Miss! " + this.currentPlayer.getName() + " has the next turn!");
+            }
+
+            alert.showAndWait();
         }
 
-        alert.showAndWait();
         this.nextTurn();
     }
 

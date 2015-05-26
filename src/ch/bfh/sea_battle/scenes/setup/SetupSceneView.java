@@ -37,13 +37,13 @@ public class SetupSceneView {
         vBoxRight.setSpacing(10);
 
         Label labelPlayer1 = new Label("Player 1:");
-        this.nameFirstPlayer = new TextField();
+        this.nameFirstPlayer = new TextField("Player 1");
         vBoxLeft.getChildren().add(labelPlayer1);
         vBoxRight.getChildren().add(this.nameFirstPlayer);
 
         if (this.gameType == GameType.TWO_PLAYER) {
             Label labelPlayer2 = new Label("Player 2:");
-            this.nameSecondPlayer = new TextField();
+            this.nameSecondPlayer = new TextField("Player 2");
             vBoxLeft.getChildren().add(labelPlayer2);
             vBoxRight.getChildren().add(this.nameSecondPlayer);
         }
