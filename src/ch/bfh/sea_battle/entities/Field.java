@@ -59,8 +59,13 @@ public class Field {
             System.out.println("");
         }
 
-        int destroyed = this.ship.get(this.field[x][y]).getDestroyed();
-        this.ship.get(this.field[x][y]).setDestroyed(destroyed--);
+        int fieldvalue = (this.field[x][y]-1);
+        if(fieldvalue < 0) {
+            fieldvalue = -1 * fieldvalue;
+        }
+
+        int destroyed = this.ship.get(fieldvalue).getDestroyed();
+        this.ship.get(fieldvalue).setDestroyed(destroyed--);
 
         //set field to -1 * uid -> destroyed
         this.field[x][y] = -1 * this.field[x][y];
