@@ -49,7 +49,7 @@ public class ShipView extends ImageView {
             });
 
             this.setOnMouseDragged(e -> {
-                if (e.getSceneX() > this.margin && e.getSceneX() < (2 * this.margin + this.width * this.cellSize) && e.getSceneY() > 46 && e.getSceneY() < (this.margin + this.height * this.cellSize)) {
+                if (e.getSceneX() > this.margin && e.getSceneX() < (2 * this.margin + this.width * this.cellSize) && e.getSceneY() > 46 && e.getSceneY() < (46 + this.margin + this.height * this.cellSize)) {
                     double offsetX = e.getSceneX() - orgSceneX;
                     double offsetY = e.getSceneY() - orgSceneY;
                     double newTranslateX = orgTranslateX + offsetX;

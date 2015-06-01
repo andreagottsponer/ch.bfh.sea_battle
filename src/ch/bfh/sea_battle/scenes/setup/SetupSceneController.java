@@ -40,7 +40,7 @@ public class SetupSceneController {
                 return;
             }
 
-            if (numberOfColumns < 7 || numberOfColumns > 20 || numberOfRows < 7 || numberOfRows > 20) {
+            if (numberOfColumns < 7 || numberOfColumns > 20 || numberOfRows < 8 || numberOfRows > 20) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Error!");
                 alert.setHeaderText(null);

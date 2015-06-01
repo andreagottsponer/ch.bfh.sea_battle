@@ -26,7 +26,6 @@ public class GamePlaySceneView {
     private ArrayList<ShipView> shipViews;
     private ArrayList<ShipView> revealedShipViews;
     private ArrayList<Label> labels;
-    private Label rightLabel;
     private int width = ConfigurationManager.sharedInstance().getGridWidth();
     private int height = ConfigurationManager.sharedInstance().getGridHeight();
     private int cellSize = ConfigurationManager.sharedInstance().getCellSize();

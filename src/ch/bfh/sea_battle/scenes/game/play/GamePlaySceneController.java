@@ -9,6 +9,7 @@ import ch.bfh.sea_battle.scenes.initial.InitialSceneController;
 import ch.bfh.sea_battle.model.DataProvider;
 import ch.bfh.sea_battle.utilities.GameType;
 import ch.bfh.sea_battle.utilities.StageProvider;
+import javafx.concurrent.Task;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
@@ -27,6 +28,7 @@ public class GamePlaySceneController {
     private Player opponentPlayer;
     private int width = ConfigurationManager.sharedInstance().getGridWidth();
     private int height = ConfigurationManager.sharedInstance().getGridHeight();
+    private boolean isComputerPlaying = false;
 
     public GamePlaySceneController() {
         this.view = new GamePlaySceneView(this.dataProvider.getGameType());
@@ -47,10 +49,12 @@ public class GamePlaySceneController {
         });
 
         this.view.getPane().setOnMouseClicked(e -> {
-            int cellSize = ConfigurationManager.sharedInstance().getCellSize();
-            int x = (int) (e.getX() - 10) / cellSize;
-            int y = (int) (e.getY() - cellSize) / cellSize;
-            this.interpretShot(x, y);
+            if (!isComputerPlaying) {
+                int cellSize = ConfigurationManager.sharedInstance().getCellSize();
+                int x = (int) (e.getX() - 10) / cellSize;
+                int y = (int) (e.getY() - cellSize) / cellSize;
+                this.interpretShot(x, y);
+            }
         });
     }
 
@@ -149,9 +153,38 @@ public class GamePlaySceneController {
 
     private void nextTurn() {
         if (this.currentPlayer instanceof Bot) {
-            Bot bot = (Bot)this.currentPlayer;
-            int[] result = bot.shot();
-            this.interpretShot(result[1], result[0]);
+
+            isComputerPlaying = true;
+
+            Task<Void> task = new Task<Void>() {
+                @Override
+                public Void call() {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+
+                @Override
+                protected void succeeded() {
+                    Bot bot = (Bot)currentPlayer;
+                    int[] result = bot.shot();
+                    System.out.println("Result: " + result[1] + result[0]);
+                    interpretShot(result[1], result[0]);
+                }
+
+                @Override
+                protected void cancelled() {
+                    System.out.println("Cancelled!");
+                }
+            };
+
+            Thread thread = new Thread(task);
+            thread.start();
+        } else {
+            isComputerPlaying = false;
         }
 
         String title = this.currentPlayer.getName() + ": Your turn!";
