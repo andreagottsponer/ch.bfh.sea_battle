@@ -71,7 +71,7 @@ public class GamePlaySceneController {
 
         boolean didHit = this.opponentPlayer.getField().getField()[x][y] != 0;
 
-        this.view.clickedField(x, y, didHit, this.currentPlayer == this.dataProvider.getSecondPlayer());
+        this.view.clickedField(x, y, didHit, (this.dataProvider.getGameType() == GameType.SINGLE_PLAYER && this.currentPlayer == this.dataProvider.getSecondPlayer()));
 
         if (didHit) {
             int shipId = this.opponentPlayer.getField().getField()[x][y];
@@ -188,6 +188,15 @@ public class GamePlaySceneController {
         }
 
         String title = this.currentPlayer.getName() + ": Your turn!";
+
+        if (this.dataProvider.getGameType() == GameType.TWO_PLAYER) {
+            this.view.getRightLabel().setText("Ships " + this.currentPlayer.getName());
+            this.view.getLeftLabel().setText(this.currentPlayer.getName() + ", destroy all targets!");
+        } else {
+            this.view.getRightLabel().setText("Ships " + this.dataProvider.getFirstPlayer().getName());
+            this.view.getLeftLabel().setText(this.dataProvider.getFirstPlayer().getName() + ", destroy all targets!");
+        }
+
         this.view.refreshInterface(this.currentPlayer.getField().getField(), this.currentPlayer.getShots(), this.currentPlayer.getField().getShip(), this.opponentPlayer.getField().getField(), this.opponentPlayer.getShots(), this.opponentPlayer.getField().getShip(), title);
     }
 

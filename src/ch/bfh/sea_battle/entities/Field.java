@@ -1,5 +1,7 @@
 package ch.bfh.sea_battle.entities;
 
+import ch.bfh.sea_battle.model.ConfigurationManager;
+
 import java.util.ArrayList;
 
 public class Field {
@@ -7,6 +9,8 @@ public class Field {
     protected int y;
     protected int[][] field;
     protected ArrayList<Ship> ship;
+    private int width = ConfigurationManager.sharedInstance().getGridWidth();
+    private int height = ConfigurationManager.sharedInstance().getGridHeight();
 
     public Field(int x, int y) {
         this.x = x;
@@ -16,28 +20,47 @@ public class Field {
     }
 
     public boolean addShip(Ship ship)  {
-        this.ship.add(ship.getUid(), ship);
-        ship.setUid(ship.getUid() + 1);
+        boolean isShipPlacable = isShipPlacable(ship);
 
-        for (int i = 0; i < ship.length; i++) {
-            if (ship.getDirection() % 2 == 0) {
-                int x = ship.getX() + i;
-                int y = ship.getY();
-                if (x < 0 || x > 9 || y < 0 || y > 9 || this.field[x][y] != 0) {
-                    this.ship.clear();
-                    this.field = new int[this.x][this.y];
-                    return false;
-                }
-                this.field[x][y] = ship.getUid();
-            } else {
+        if (isShipPlacable) {
+            for (int i = 0; i < ship.length; ++i) {
                 int x = ship.getX();
-                int y = ship.getY() + i;
-                if (x < 0 || x > 9 || y < 0 || y > 9 || this.field[x][y] != 0) {
-                    this.ship.clear();
-                    this.field = new int[this.x][this.y];
-                    return false;
-                }
-                this.field[x][y] = ship.getUid();
+                int y = ship.getY();
+
+                if (ship.getDirection() % 2 == 0)  // horizontal
+                    x += i;
+                else  // vertical
+                    y += i;
+
+                this.field[x][y] = ship.getUid() + 1;
+            }
+
+            this.ship.add(ship.getUid(), ship);
+            ship.setUid(ship.getUid() + 1);
+        }
+
+        return isShipPlacable;
+    }
+
+    private boolean isShipPlacable(Ship ship) {
+        //can we place the ship?
+        for (int i = 0; i < ship.length; ++i) {
+            int x = ship.getX();
+            int y = ship.getY();
+
+            if (ship.getDirection() % 2 == 0)  //horizontal
+                x += i;
+            else  //vertical
+                y += i;
+
+            //indices valid?
+            final boolean validIndices = (x >= 0 && x < this.width && y >= 0 && y < this.height);
+
+            if (validIndices) {
+                //is the field empty?
+                if (this.field[x][y] != 0) return false;
+            } else {
+                return false;
             }
         }
 

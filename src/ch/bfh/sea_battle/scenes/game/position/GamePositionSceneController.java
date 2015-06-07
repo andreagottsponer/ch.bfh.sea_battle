@@ -15,6 +15,9 @@ import javafx.geometry.Bounds;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+import java.util.Random;
+
 public class GamePositionSceneController {
     //Model
     private DataProvider dataProvider = DataProvider.sharedInstance();
@@ -36,24 +39,7 @@ public class GamePositionSceneController {
                 if (!this.saveShipsForPlayer(this.dataProvider.getFirstPlayer())) {
                     this.showIncorrectAlert();
                 } else {
-                    int width = ConfigurationManager.sharedInstance().getGridWidth();
-                    int height = ConfigurationManager.sharedInstance().getGridHeight();
-
-                    //setup ships for bot
-                    Field field = new Field(width, height);
-
-                    Ship ship1 = new Ship(0, 3, 1, 1, 0);
-                    Ship ship2 = new Ship(1, 3, 2, 2, 0);
-                    Ship ship3 = new Ship(2, 3, 3, 3, 0);
-                    Ship ship4 = new Ship(3, 3, 4, 4, 0);
-                    Ship ship5 = new Ship(4, 3, 5, 5, 0);
-
-                    field.addShip(ship1);
-                    field.addShip(ship2);
-                    field.addShip(ship3);
-                    field.addShip(ship4);
-                    field.addShip(ship5);
-
+                    Field field = generateShipsForBot();
                     this.dataProvider.getSecondPlayer().setField(field);
                     new GamePlaySceneController().show();
                 }
@@ -73,7 +59,44 @@ public class GamePositionSceneController {
         });
     }
 
+    private Field generateShipsForBot() {
+        int width = ConfigurationManager.sharedInstance().getGridWidth();
+        int height = ConfigurationManager.sharedInstance().getGridHeight();
+
+        Field field = new Field(width, height);
+        Random rand = new Random();
+
+        for (int i = 0; i < 6; i++) {
+            int direction = rand.nextInt(4);
+            int x;
+            int y;
+            int length;
+
+            do {
+                switch (i) {
+                    case 2: length = 3; break;
+                    case 3: length = 3; break;
+                    case 4: length = 4; break;
+                    case 5: length = 5; break;
+                    default: length = 2; break;
+                }
+
+                if (direction % 2 == 0) {
+                    x = rand.nextInt(width-length);
+                    y = rand.nextInt(height);
+                } else {
+                    x = rand.nextInt(width);
+                    y = rand.nextInt(height - length);
+                }
+            } while (!field.addShip(new Ship(i, length, x, y, direction)));
+        }
+
+        return field;
+    }
+
     private void showIncorrectAlert() {
+        this.currentPlayer.getField().getShip().clear();
+        this.currentPlayer.getField().setField(new int[this.currentPlayer.getField().getX()][this.currentPlayer.getField().getY()]);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Incorrect Placement!");
         alert.setHeaderText(null);

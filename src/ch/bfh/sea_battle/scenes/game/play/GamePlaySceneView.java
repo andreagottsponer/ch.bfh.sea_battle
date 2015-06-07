@@ -34,6 +34,8 @@ public class GamePlaySceneView {
     private boolean showDebugLabels = false;
     private GameType gameType;
     private boolean didDrawShips;
+    private Label rightLabel;
+    private Label leftLabel;
 
     public GamePlaySceneView(GameType gameType) {
         this.imageViews = new ArrayList<>();
@@ -53,17 +55,17 @@ public class GamePlaySceneView {
         this.pane = new Pane();
         this.pane.setBackground(new Background(new BackgroundFill(Color.web("0xb5eef5"), CornerRadii.EMPTY, Insets.EMPTY)));
 
-        Label leftLabel = new Label("Your Target");
-        leftLabel.setFont(new Font("Arial", 30));
-        leftLabel.setAlignment(Pos.CENTER);
-        leftLabel.relocate(10, 0);
-        this.pane.getChildren().add(leftLabel);
+        this.leftLabel = new Label();
+        this.leftLabel.setFont(new Font("Arial", 20));
+        this.leftLabel.setAlignment(Pos.CENTER);
+        this.leftLabel.relocate(10, 10);
+        this.pane.getChildren().add(this.leftLabel);
 
-        Label rightLabel = new Label("Your Ships");
-        rightLabel.setFont(new Font("Arial", 30));
-        rightLabel.setAlignment(Pos.CENTER);
-        rightLabel.relocate(this.cellSize * this.width + this.margin * 5, 0);
-        this.pane.getChildren().add(rightLabel);
+        this.rightLabel = new Label();
+        this.rightLabel.setFont(new Font("Arial", 20));
+        this.rightLabel.setAlignment(Pos.CENTER);
+        this.rightLabel.relocate(this.cellSize * this.width + this.margin * 5, 10);
+        this.pane.getChildren().add(this.rightLabel);
 
         BorderPane borderPane = new BorderPane();
         borderPane.setTop(this.navigationBar);
@@ -240,5 +242,13 @@ public class GamePlaySceneView {
 
     public Pane getPane() {
         return this.pane;
+    }
+
+    public Label getRightLabel() {
+        return this.rightLabel;
+    }
+
+    public Label getLeftLabel() {
+        return this.leftLabel;
     }
 }

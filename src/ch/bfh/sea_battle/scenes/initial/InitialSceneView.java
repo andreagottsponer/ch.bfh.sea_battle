@@ -24,7 +24,7 @@ public class InitialSceneView {
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
         vBox.setSpacing(10);
-        this.singlePlayerButton = new Button("1 Player vs. AI");
+        this.singlePlayerButton = new Button("1 Player vs. Computer");
         this.singlePlayerButton.setPrefWidth(200);
         this.singlePlayerButton.setPrefHeight(40);
         this.twoPlayerButton = new Button("2 Players");

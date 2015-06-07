@@ -1,5 +1,8 @@
-package ch.bfh.sea_battle.entities;
+package ch.bfh.sea_battle.test;
 
+import ch.bfh.sea_battle.entities.Bot;
+import ch.bfh.sea_battle.entities.Field;
+import ch.bfh.sea_battle.entities.Ship;
 import ch.bfh.sea_battle.model.ConfigurationManager;
 
 /**

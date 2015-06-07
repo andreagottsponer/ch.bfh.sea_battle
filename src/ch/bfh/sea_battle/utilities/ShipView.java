@@ -65,8 +65,34 @@ public class ShipView extends ImageView {
                 double offsetY = e.getSceneY() - orgSceneY;
                 double newTranslateX = orgTranslateX + offsetX;
                 double newTranslateY = orgTranslateY + offsetY;
-                this.setTranslateX(newTranslateX - (newTranslateX % cellSize));
-                this.setTranslateY(newTranslateY - (newTranslateY % cellSize));
+
+                if ((newTranslateX % cellSize) > 0) {
+                    if ((newTranslateX % cellSize) > (cellSize / 2)) {
+                        this.setTranslateX(newTranslateX + (cellSize - (newTranslateX % cellSize)));
+                    } else {
+                        this.setTranslateX(newTranslateX - (newTranslateX % cellSize));
+                    }
+                } else {
+                    if (Math.abs(newTranslateX % cellSize) > (cellSize / 2)) {
+                        this.setTranslateX(newTranslateX - (cellSize - Math.abs(newTranslateX % cellSize)));
+                    } else {
+                        this.setTranslateX(newTranslateX + (Math.abs(newTranslateX % cellSize)));
+                    }
+                }
+
+                if ((newTranslateY % cellSize) > 0) {
+                    if ((newTranslateY % cellSize) > (cellSize / 2)) {
+                        this.setTranslateY(newTranslateY + (cellSize - (newTranslateY % cellSize)));
+                    } else {
+                        this.setTranslateY(newTranslateY - (newTranslateY % cellSize));
+                    }
+                } else {
+                    if (Math.abs(newTranslateY % cellSize) > (cellSize / 2)) {
+                        this.setTranslateY(newTranslateY - (cellSize - Math.abs(newTranslateY % cellSize)));
+                    } else {
+                        this.setTranslateY(newTranslateY + (Math.abs(newTranslateY % cellSize)));
+                    }
+                }
             });
         }
     }
